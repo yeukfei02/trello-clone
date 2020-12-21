@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import faker from 'faker';
 import moment from 'moment';
+import Chance from 'chance';
+
+const chance = new Chance();
 
 function MainView(): JSX.Element {
   const [rowsData, setRowsData] = useState<any[]>([]);
@@ -31,7 +34,7 @@ function MainView(): JSX.Element {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         text: `${faker.random.words()} ${faker.random.words()}`,
-        createdAt: faker.time.recent(),
+        createdAt: moment.unix(chance.timestamp()).format('YYYY-MM-DD HH:mm:ss'),
       };
       todoDataList.push(obj);
     }
@@ -48,7 +51,7 @@ function MainView(): JSX.Element {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         text: `${faker.random.words()} ${faker.random.words()}`,
-        createdAt: faker.time.recent(),
+        createdAt: moment.unix(chance.timestamp()).format('YYYY-MM-DD HH:mm:ss'),
       };
       inProgressDataList.push(obj);
     }
@@ -65,7 +68,7 @@ function MainView(): JSX.Element {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         text: `${faker.random.words()} ${faker.random.words()}`,
-        createdAt: faker.time.recent(),
+        createdAt: moment.unix(chance.timestamp()).format('YYYY-MM-DD HH:mm:ss'),
       };
       doneDataList.push(obj);
     }
@@ -205,9 +208,7 @@ function MainView(): JSX.Element {
                         </b>
                       </div>
                       <div className="my-2">{item.text}</div>
-                      <div className="my-1 text-xs text-gray-500">
-                        {moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}
-                      </div>
+                      <div className="my-1 text-xs text-gray-500">{item.createdAt}</div>
                     </div>
                   </div>
                 </div>
