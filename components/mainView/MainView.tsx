@@ -248,12 +248,21 @@ function MainView(): JSX.Element {
     return rows;
   };
 
+  const handleLoginButtonClick = () => {
+    console.log('login');
+  };
+
+  const handleSignupButtonClick = () => {
+    console.log('signup');
+  };
+
   return (
     <div className="m-10">
       <div className="flex flex-row justify-end mb-8">
         <button
           type="button"
           className="px-4 py-2 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          onClick={() => handleLoginButtonClick()}
         >
           Login
         </button>
@@ -261,6 +270,7 @@ function MainView(): JSX.Element {
         <button
           type="button"
           className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+          onClick={() => handleSignupButtonClick()}
         >
           Signup
         </button>
