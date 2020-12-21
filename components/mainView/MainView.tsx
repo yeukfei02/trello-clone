@@ -27,10 +27,10 @@ function MainView(): JSX.Element {
     for (let index = 0; index < 3; index++) {
       const obj = {
         id: faker.random.uuid(),
-        imageUrl: faker.image.imageUrl(),
+        imageUrl: faker.image.image(),
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        text: faker.lorem.words(),
+        text: `${faker.random.words()} ${faker.random.words()}`,
         createdAt: faker.time.recent(),
       };
       todoDataList.push(obj);
@@ -44,10 +44,10 @@ function MainView(): JSX.Element {
     for (let index = 0; index < 3; index++) {
       const obj = {
         id: faker.random.uuid(),
-        imageUrl: faker.image.imageUrl(),
+        imageUrl: faker.image.image(),
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        text: faker.lorem.words(),
+        text: `${faker.random.words()} ${faker.random.words()}`,
         createdAt: faker.time.recent(),
       };
       inProgressDataList.push(obj);
@@ -61,10 +61,10 @@ function MainView(): JSX.Element {
     for (let index = 0; index < 3; index++) {
       const obj = {
         id: faker.random.uuid(),
-        imageUrl: faker.image.imageUrl(),
+        imageUrl: faker.image.image(),
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        text: faker.lorem.words(),
+        text: `${faker.random.words()} ${faker.random.words()}`,
         createdAt: faker.time.recent(),
       };
       doneDataList.push(obj);
@@ -205,7 +205,7 @@ function MainView(): JSX.Element {
                         </b>
                       </div>
                       <div className="my-2">{item.text}</div>
-                      <div className="text-xs text-gray-500">
+                      <div className="my-1 text-xs text-gray-500">
                         {moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}
                       </div>
                     </div>
