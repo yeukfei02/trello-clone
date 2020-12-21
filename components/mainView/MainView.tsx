@@ -65,7 +65,7 @@ function MainView(): JSX.Element {
     setDoneData(doneDataList);
   };
 
-  const onDragEnd = (result: any, dataList: any[], type: string) => {
+  const onDragEnd = (result: any) => {
     console.log('result = ', result);
 
     if (!result.destination) {
@@ -74,19 +74,21 @@ function MainView(): JSX.Element {
 
     const startIndex = result.source.index;
     const endIndex = result.destination.index;
-
-    const newDataList = reorder(dataList, startIndex, endIndex);
+    const type = result.type;
 
     if (type) {
       switch (type) {
-        case 'todo':
-          setTodoData(newDataList);
+        case 'Todo':
+          const newTodoDataList = reorder(todoData, startIndex, endIndex);
+          setTodoData(newTodoDataList);
           break;
-        case 'inProgress':
-          setInProgressData(newDataList);
+        case 'InProgress':
+          const newInprogressDataList = reorder(inProgressData, startIndex, endIndex);
+          setInProgressData(newInprogressDataList);
           break;
-        case 'done':
-          setDoneData(newDataList);
+        case 'Done':
+          const newDoneDataList = reorder(doneData, startIndex, endIndex);
+          setDoneData(newDoneDataList);
           break;
         default:
           break;
@@ -141,63 +143,61 @@ function MainView(): JSX.Element {
   };
 
   return (
-    <div className="grid md:grid-cols-3 gap-4">
-      <div className="p-14">
-        <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
-          <div className="p-5">
-            <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Todo</h3>
+    <div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="p-14">
+            <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+              <div className="p-5">
+                <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Todo</h3>
 
-            <DragDropContext onDragEnd={(result) => onDragEnd(result, todoData, 'todo')}>
-              <Droppable droppableId="todoData" type="Todo">
-                {(provided, _) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
-                    {renderItems(todoData)}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
+                <Droppable droppableId="todoData" type="Todo">
+                  {(provided, _) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
+                      {renderItems(todoData)}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-14">
+            <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+              <div className="p-5">
+                <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">In progress</h3>
+
+                <Droppable droppableId="inProgressData" type="InProgress">
+                  {(provided, _) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
+                      {renderItems(inProgressData)}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-14">
+            <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+              <div className="p-5">
+                <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Done</h3>
+
+                <Droppable droppableId="doneData" type="Done">
+                  {(provided, _) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
+                      {renderItems(doneData)}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="p-14">
-        <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
-          <div className="p-5">
-            <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">In progress</h3>
-
-            <DragDropContext onDragEnd={(result) => onDragEnd(result, inProgressData, 'inProgress')}>
-              <Droppable droppableId="inProgressData" type="InProgress">
-                {(provided, _) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
-                    {renderItems(inProgressData)}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </div>
-        </div>
-      </div>
-
-      <div className="p-14">
-        <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
-          <div className="p-5">
-            <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Done</h3>
-
-            <DragDropContext onDragEnd={(result) => onDragEnd(result, doneData, 'done')}>
-              <Droppable droppableId="doneData" type="Done">
-                {(provided, _) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
-                    {renderItems(doneData)}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </div>
-        </div>
-      </div>
+      </DragDropContext>
     </div>
   );
 }
