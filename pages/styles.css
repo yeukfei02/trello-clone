@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: cornflowerblue;
+  min-height: 100vh;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.hoverItem:hover {
+  background-color: rgba(253, 230, 138, 1);
+}
