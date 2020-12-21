@@ -10,6 +10,10 @@ body {
   font-family: 'Fira Sans', sans-serif;
 }
 
+.hoverRowItem:hover {
+  background-color: rgba(52, 211, 153, 1);
+}
+
 .hoverItem:hover {
   background-color: rgba(253, 230, 138, 1);
 }

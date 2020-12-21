@@ -4,6 +4,7 @@ import faker from 'faker';
 import moment from 'moment';
 
 function MainView(): JSX.Element {
+  const [rowsData, setRowsData] = useState<any[]>([]);
   const [todoData, setTodoData] = useState<any[]>([]);
   const [inProgressData, setInProgressData] = useState<any[]>([]);
   const [doneData, setDoneData] = useState<any[]>([]);
@@ -13,6 +14,12 @@ function MainView(): JSX.Element {
     getInProgressData();
     getDoneData();
   }, []);
+
+  useEffect(() => {
+    if (todoData && inProgressData && doneData) {
+      getRowsData();
+    }
+  }, [todoData, inProgressData, doneData]);
 
   const getTododata = () => {
     const todoDataList = [];
@@ -65,6 +72,74 @@ function MainView(): JSX.Element {
     setDoneData(doneDataList);
   };
 
+  const getRowsData = () => {
+    const item1 = {
+      id: 'todo',
+      content: (
+        <div className="p-5">
+          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+            <div className="p-5">
+              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Todo</h3>
+
+              <Droppable droppableId="todoData" type="Todo">
+                {(provided, _) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {renderItems(todoData)}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </div>
+        </div>
+      ),
+    };
+    const item2 = {
+      id: 'inProgress',
+      content: (
+        <div className="p-5">
+          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+            <div className="p-5">
+              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">In progress</h3>
+
+              <Droppable droppableId="inProgressData" type="InProgress">
+                {(provided, _) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {renderItems(inProgressData)}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </div>
+        </div>
+      ),
+    };
+    const item3 = {
+      id: 'done',
+      content: (
+        <div className="p-5">
+          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+            <div className="p-5">
+              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Done</h3>
+
+              <Droppable droppableId="doneData" type="Done">
+                {(provided, _) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {renderItems(doneData)}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </div>
+        </div>
+      ),
+    };
+    const rowsList = [item1, item2, item3];
+    setRowsData(rowsList);
+  };
+
   const onDragEnd = (result: any) => {
     console.log('result = ', result);
 
@@ -78,6 +153,10 @@ function MainView(): JSX.Element {
 
     if (type) {
       switch (type) {
+        case 'Rows':
+          const newRowsDataList = reorder(rowsData, startIndex, endIndex);
+          setRowsData(newRowsDataList);
+          break;
         case 'Todo':
           const newTodoDataList = reorder(todoData, startIndex, endIndex);
           setTodoData(newTodoDataList);
@@ -142,61 +221,60 @@ function MainView(): JSX.Element {
     return itemsList;
   };
 
+  const renderRows = (rowsData: any[]) => {
+    let rows = null;
+
+    if (rowsData) {
+      rows = rowsData.map((item: any, index: number) => {
+        return (
+          <Draggable key={item.id} draggableId={item.id} index={index}>
+            {(provided, snapshot) => {
+              return (
+                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                  <div
+                    className="bg-white rounded hoverRowItem"
+                    style={{ backgroundColor: snapshot.isDragging ? 'rgba(254, 202, 202, 1)' : '' }}
+                  >
+                    <div>{item.content}</div>
+                  </div>
+                </div>
+              );
+            }}
+          </Draggable>
+        );
+      });
+    }
+
+    return rows;
+  };
+
   return (
-    <div>
+    <div className="m-10">
+      <div className="flex flex-row justify-end mb-8">
+        <button
+          type="button"
+          className="px-4 py-2 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          Login
+        </button>
+
+        <button
+          type="button"
+          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+        >
+          Signup
+        </button>
+      </div>
+
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-14">
-            <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
-              <div className="p-5">
-                <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Todo</h3>
-
-                <Droppable droppableId="todoData" type="Todo">
-                  {(provided, _) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
-                      {renderItems(todoData)}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </div>
+        <Droppable droppableId="rows" type="Rows" direction="horizontal">
+          {(provided, _) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <div className="grid md:grid-cols-3 gap-4">{renderRows(rowsData)}</div>
+              {provided.placeholder}
             </div>
-          </div>
-
-          <div className="p-14">
-            <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
-              <div className="p-5">
-                <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">In progress</h3>
-
-                <Droppable droppableId="inProgressData" type="InProgress">
-                  {(provided, _) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
-                      {renderItems(inProgressData)}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-14">
-            <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
-              <div className="p-5">
-                <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Done</h3>
-
-                <Droppable droppableId="doneData" type="Done">
-                  {(provided, _) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="my-5">
-                      {renderItems(doneData)}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </div>
-            </div>
-          </div>
-        </div>
+          )}
+        </Droppable>
       </DragDropContext>
     </div>
   );
