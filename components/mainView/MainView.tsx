@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import faker from 'faker';
 import moment from 'moment';
@@ -7,6 +8,8 @@ import Chance from 'chance';
 const chance = new Chance();
 
 function MainView(): JSX.Element {
+  const router = useRouter();
+
   const [rowsData, setRowsData] = useState<any[]>([]);
   const [todoData, setTodoData] = useState<any[]>([]);
   const [inProgressData, setInProgressData] = useState<any[]>([]);
@@ -250,11 +253,11 @@ function MainView(): JSX.Element {
   };
 
   const handleLoginButtonClick = () => {
-    console.log('login');
+    router.push(`/login`);
   };
 
   const handleSignupButtonClick = () => {
-    console.log('signup');
+    router.push(`/signup`);
   };
 
   return (
