@@ -27,8 +27,24 @@ function Login(): JSX.Element {
     setEmail(e.target.value);
   };
 
+  const handleEmailInputKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (email && password) {
+        handleLoginSubmitButtonClick();
+      }
+    }
+  };
+
   const handlePasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handlePasswordInputKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (email && password) {
+        handleLoginSubmitButtonClick();
+      }
+    }
   };
 
   const handleLoginSubmitButtonClick = async () => {
@@ -45,6 +61,9 @@ function Login(): JSX.Element {
           localStorage.setItem('userId', userId);
 
           setShowSuccessModal(true);
+          setTimeout(() => {
+            router.push(`/`);
+          }, 1500);
         } else {
           setShowErrorModal(true);
         }
@@ -248,6 +267,7 @@ function Login(): JSX.Element {
                 id="email"
                 placeholder="Email"
                 onChange={(e) => handleEmailInputChange(e)}
+                onKeyUp={(e) => handleEmailInputKeyUp(e)}
                 className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
               />
             </div>
@@ -262,6 +282,7 @@ function Login(): JSX.Element {
                 id="password"
                 placeholder="Password"
                 onChange={(e) => handlePasswordInputChange(e)}
+                onKeyUp={(e) => handlePasswordInputKeyUp(e)}
                 className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
               />
             </div>
