@@ -220,6 +220,11 @@ function Login(): JSX.Element {
     return modal;
   };
 
+  // const handleSuccessCloseButtonClick = () => {
+  //   setShowSuccessModal(false);
+  //   router.push(`/`);
+  // };
+
   const handleErrorCloseButtonClick = () => {
     setShowErrorModal(false);
   };

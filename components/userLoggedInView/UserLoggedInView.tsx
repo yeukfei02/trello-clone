@@ -34,43 +34,49 @@ function UserLoggedInView(): JSX.Element {
   const getUserDetails = async () => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
+    const userDetailsStr = localStorage.getItem('userDetailsStr');
 
-    const response = await axios.post(
-      `${ROOT_URL}`,
-      {
-        query: `
-            query getUserDetails($userId: String!) {
-                getUserDetails(userId: $userId) {
-                message
-                userDetails {
-                    id
-                    email
-                    firstName
-                    lastName
-                    createdAt
-                    updatedAt
-                }
-                }
-            }
-          `,
-        variables: {
-          userId: userId,
+    if (!userDetailsStr && userId) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+                  query getUserDetails($userId: String!) {
+                      getUserDetails(userId: $userId) {
+                      message
+                      userDetails {
+                          id
+                          email
+                          firstName
+                          lastName
+                          createdAt
+                          updatedAt
+                      }
+                      }
+                  }
+                `,
+          variables: {
+            userId: userId,
+          },
         },
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         },
-      },
-    );
-    if (response) {
-      const responseData = response.data;
-      console.log('responseData = ', responseData);
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
 
-      const userDetails = responseData.data.getUserDetails.userDetails;
-      const resultStr = `${userDetails.firstName} ${userDetails.lastName} (${userDetails.email})`;
-      setUserDetails(resultStr);
+        const userDetails = responseData.data.getUserDetails.userDetails;
+        const resultStr = `${userDetails.firstName} ${userDetails.lastName} (${userDetails.email})`;
+        localStorage.setItem('userDetailsStr', resultStr);
+        setUserDetails(resultStr);
+      }
+    } else {
+      if (userDetailsStr) setUserDetails(userDetailsStr);
     }
   };
 
