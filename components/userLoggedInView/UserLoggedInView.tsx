@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 
@@ -7,6 +8,8 @@ import { getRootUrl } from '../../common/common';
 const ROOT_URL = getRootUrl();
 
 function UserLoggedInView(): JSX.Element {
+  const router = useRouter();
+
   const [userDetails, setUserDetails] = useState('');
 
   const [rowsData, setRowsData] = useState<any[]>([]);
@@ -260,6 +263,10 @@ function UserLoggedInView(): JSX.Element {
     return rows;
   };
 
+  const handleAddItemButtonClick = () => {
+    router.push(`/add-item`);
+  };
+
   const handleLogoutButtonClick = () => {
     localStorage.clear();
     window.location.reload();
@@ -269,6 +276,14 @@ function UserLoggedInView(): JSX.Element {
     <div className="m-10">
       <div className="flex flex-row justify-end mb-8">
         <div className="flex items-center font-bold text-lg">{userDetails}</div>
+
+        <button
+          type="button"
+          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+          onClick={() => handleAddItemButtonClick()}
+        >
+          Add Item
+        </button>
 
         <button
           type="button"
