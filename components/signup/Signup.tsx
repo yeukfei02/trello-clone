@@ -195,7 +195,7 @@ function Signup(): JSX.Element {
                       Signup fail
                     </h3>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">Signup fail, email already exists</p>
+                      <p className="text-sm text-gray-500">Email already exists</p>
                     </div>
                   </div>
                 </div>
