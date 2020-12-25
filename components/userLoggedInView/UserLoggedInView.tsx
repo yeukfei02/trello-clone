@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
+import moment from 'moment';
 
 import { getRootUrl } from '../../common/common';
 
@@ -80,19 +81,136 @@ function UserLoggedInView(): JSX.Element {
     }
   };
 
-  const getTododata = () => {
-    const todoDataList: any[] = [];
-    setTodoData(todoDataList);
+  const getTododata = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            query getTodoList ($userId: String!) {
+                getTodoList (userId: $userId) {
+                    message
+                    todo {
+                        id
+                        userId
+                        title
+                        description
+                        dataType
+                        createdAt
+                        updatedAt
+                    }
+                }
+            }
+          `,
+          variables: {
+            userId: userId,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        setTodoData(responseData.data.getTodoList.todo);
+      }
+    }
   };
 
-  const getInProgressData = () => {
-    const inProgressDataList: any[] = [];
-    setInProgressData(inProgressDataList);
+  const getInProgressData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            query getInProgressList ($userId: String!) {
+                getInProgressList (userId: $userId) {
+                    message
+                    inProgress {
+                        id
+                        userId
+                        title
+                        description
+                        dataType
+                        createdAt
+                        updatedAt
+                    }
+                }
+            }
+          `,
+          variables: {
+            userId: userId,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        setInProgressData(responseData.data.getInProgressList.inProgress);
+      }
+    }
   };
 
-  const getDoneData = () => {
-    const doneDataList: any[] = [];
-    setDoneData(doneDataList);
+  const getDoneData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            query getDoneList ($userId: String!) {
+                getDoneList (userId: $userId) {
+                    message
+                    done {
+                        id
+                        userId
+                        title
+                        description
+                        dataType
+                        createdAt
+                        updatedAt
+                    }
+                }
+            }
+          `,
+          variables: {
+            userId: userId,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        setDoneData(responseData.data.getDoneList.done);
+      }
+    }
   };
 
   const getRowsData = () => {
@@ -217,18 +335,33 @@ function UserLoggedInView(): JSX.Element {
               return (
                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                   <div
-                    className="flex flex-row bg-white p-5 m-5 rounded hoverItem"
+                    className="flex flex-col items-end bg-white p-5 m-5 rounded hoverItem"
                     style={{ backgroundColor: snapshot.isDragging ? 'rgba(254, 202, 202, 1)' : '' }}
                   >
-                    <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" />
-                    <div className="flex flex-col mx-4">
+                    {/* <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" /> */}
+                    <div
+                      className="h-8 w-8"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleDeleteButtonClick(item.id, item.dataType)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="flex flex-col self-start mx-4">
                       <div className="text-lg">
-                        <b>
-                          {item.firstName} {item.lastName}
-                        </b>
+                        <b>{item.title}</b>
                       </div>
-                      <div className="my-2">{item.text}</div>
-                      <div className="my-1 text-xs text-gray-500">{item.createdAt}</div>
+                      <div className="my-2">{item.description}</div>
+                      <div className="my-1 text-xs text-gray-500">
+                        {moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -240,6 +373,130 @@ function UserLoggedInView(): JSX.Element {
     }
 
     return itemsList;
+  };
+
+  const handleDeleteButtonClick = async (id: string, dataType: string) => {
+    switch (dataType) {
+      case 'todo':
+        await deleteTodoDataById(id);
+        break;
+      case 'inProgress':
+        await deleteInProgressDataById(id);
+        break;
+      case 'done':
+        await deleteDoneDataById(id);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const deleteTodoDataById = async (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation deleteTodoDataById ($id: String!) {
+                deleteTodoDataById (id: $id) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        if (responseData.data) {
+          await getTododata();
+        }
+      }
+    }
+  };
+
+  const deleteInProgressDataById = async (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation deleteInProgressDataById ($id: String!) {
+                deleteInProgressDataById (id: $id) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        if (responseData.data) {
+          await getInProgressData();
+        }
+      }
+    }
+  };
+
+  const deleteDoneDataById = async (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation deleteDoneDataById ($id: String!) {
+                deleteDoneDataById (id: $id) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        if (responseData.data) {
+          await getDoneData();
+        }
+      }
+    }
   };
 
   const renderRows = (rowsData: any[]) => {
