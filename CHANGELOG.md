@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/yeukfei02/trello-clone/compare/v0.1.1...v0.1.2) (2020-12-25)
+
+
+### Features
+
+* 🎸 fix font family, add change password page, fix ui ([e3a5ad4](https://github.com/yeukfei02/trello-clone/commit/e3a5ad41f02a61e70ca71b368824763ad9e158a0))
+
 ### 0.1.1 (2020-12-25)
 
 
