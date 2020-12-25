@@ -15,6 +15,8 @@ function UserLoggedInView(): JSX.Element {
   const [description, setDescription] = useState('');
   const [type, setType] = useState('todo');
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   useEffect(() => {
     getUserDetails();
   }, []);
@@ -71,7 +73,7 @@ function UserLoggedInView(): JSX.Element {
     setTitle(e.target.value);
   };
 
-  const handleDescriptionInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
   };
 
@@ -79,10 +81,201 @@ function UserLoggedInView(): JSX.Element {
     setType(e.target.value);
   };
 
-  const handleAddItemSubmitButtonClick = () => {
+  const handleAddItemSubmitButtonClick = async () => {
     if (title && description && type) {
-      router.push(`/`);
+      switch (type) {
+        case 'todo':
+          await addTodoData();
+          break;
+        case 'inProgress':
+          await addInProgressData();
+          break;
+        case 'done':
+          await addDoneData();
+          break;
+        default:
+          break;
+      }
+      setShowSuccessModal(true);
     }
+  };
+
+  const addTodoData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation addTodoData ($data: AddTodoDataInput!) {
+                addTodoData (data: $data) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            data: {
+              userId: userId,
+              title: title,
+              description: description,
+            },
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+      }
+    }
+  };
+
+  const addInProgressData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation addInProgressData ($data: AddInProgressDataInput!) {
+                addInProgressData (data: $data) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            data: {
+              userId: userId,
+              title: title,
+              description: description,
+            },
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+      }
+    }
+  };
+
+  const addDoneData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation addDoneData ($data: AddDoneDataInput!) {
+                addDoneData (data: $data) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            data: {
+              userId: userId,
+              title: title,
+              description: description,
+            },
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+      }
+    }
+  };
+
+  const renderSuccessModal = (showSuccessModal: boolean) => {
+    let modal = null;
+
+    if (showSuccessModal) {
+      modal = (
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+              &#8203;
+            </span>
+
+            <div
+              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
+            >
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg
+                      className="h-6 w-6 text-green-600"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                      Add Item success!
+                    </h3>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">You can back and check the new item now.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={() => handleSuccessCloseButtonClick()}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return modal;
+  };
+
+  const handleSuccessCloseButtonClick = () => {
+    router.push(`/`);
   };
 
   const handleLogoutButtonClick = () => {
@@ -97,7 +290,7 @@ function UserLoggedInView(): JSX.Element {
   return (
     <div className="m-10">
       <div className="flex flex-row justify-between mb-8">
-        <div className="h-8 w-8 self-center" style={{ cursor: 'pointer' }} onClick={() => handleBackArrowClick()}>
+        <div className="h-6 w-6 self-center" style={{ cursor: 'pointer' }} onClick={() => handleBackArrowClick()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -139,17 +332,17 @@ function UserLoggedInView(): JSX.Element {
             </div>
 
             <div className="mt-5">
-              <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="description" className="block text-lg font-medium text-gray-700">
                 Description
               </label>
-              <input
-                type="text"
-                name="description"
+              <textarea
                 id="description"
+                name="description"
+                rows={5}
+                className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
                 placeholder="Description"
                 onChange={(e) => handleDescriptionInputChange(e)}
-                className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
-              />
+              ></textarea>
             </div>
 
             <div className="mt-5">
@@ -180,6 +373,8 @@ function UserLoggedInView(): JSX.Element {
           </div>
         </div>
       </div>
+
+      {renderSuccessModal(showSuccessModal)}
     </div>
   );
 }

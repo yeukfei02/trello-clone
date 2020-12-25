@@ -256,7 +256,7 @@ function Signup(): JSX.Element {
             </div>
 
             <div className="mt-5">
-              <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="email" className="block text-lg font-medium text-gray-700">
                 Email
               </label>
               <input
@@ -270,7 +270,7 @@ function Signup(): JSX.Element {
             </div>
 
             <div className="mt-5">
-              <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="password" className="block text-lg font-medium text-gray-700">
                 Password
               </label>
               <input
@@ -298,7 +298,7 @@ function Signup(): JSX.Element {
             </div>
 
             <div className="mt-5">
-              <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="lastName" className="block text-lg font-medium text-gray-700">
                 Last Name
               </label>
               <input

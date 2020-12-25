@@ -270,7 +270,7 @@ function Login(): JSX.Element {
             </div>
 
             <div className="mt-5">
-              <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="email" className="block text-lg font-medium text-gray-700">
                 Email
               </label>
               <input
@@ -285,7 +285,7 @@ function Login(): JSX.Element {
             </div>
 
             <div className="mt-5">
-              <label htmlFor="firstName" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="password" className="block text-lg font-medium text-gray-700">
                 Password
               </label>
               <input

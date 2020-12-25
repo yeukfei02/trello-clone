@@ -98,6 +98,8 @@ function UserLoggedInView(): JSX.Element {
                         userId
                         title
                         description
+                        createdAt
+                        updatedAt
                     }
                 }
             }
@@ -139,6 +141,8 @@ function UserLoggedInView(): JSX.Element {
                         userId
                         title
                         description
+                        createdAt
+                        updatedAt
                     }
                 }
             }
@@ -180,6 +184,8 @@ function UserLoggedInView(): JSX.Element {
                         userId
                         title
                         description
+                        createdAt
+                        updatedAt
                     }
                 }
             }
