@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
+import moment from 'moment';
 
 import { getRootUrl } from '../../common/common';
 
@@ -80,19 +81,127 @@ function UserLoggedInView(): JSX.Element {
     }
   };
 
-  const getTododata = () => {
-    const todoDataList: any[] = [];
-    setTodoData(todoDataList);
+  const getTododata = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            query getTodoList ($userId: String!) {
+                getTodoList (userId: $userId) {
+                    message
+                    todo {
+                        id
+                        userId
+                        title
+                        description
+                    }
+                }
+            }
+          `,
+          variables: {
+            userId: userId,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        setTodoData(responseData.data.getTodoList.todo);
+      }
+    }
   };
 
-  const getInProgressData = () => {
-    const inProgressDataList: any[] = [];
-    setInProgressData(inProgressDataList);
+  const getInProgressData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            query getInProgressList ($userId: String!) {
+                getInProgressList (userId: $userId) {
+                    message
+                    inProgress {
+                        id
+                        userId
+                        title
+                        description
+                    }
+                }
+            }
+          `,
+          variables: {
+            userId: userId,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        setInProgressData(responseData.data.getInProgressList.inProgress);
+      }
+    }
   };
 
-  const getDoneData = () => {
-    const doneDataList: any[] = [];
-    setDoneData(doneDataList);
+  const getDoneData = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (userId && token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            query getDoneList ($userId: String!) {
+                getDoneList (userId: $userId) {
+                    message
+                    done {
+                        id
+                        userId
+                        title
+                        description
+                    }
+                }
+            }
+          `,
+          variables: {
+            userId: userId,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        setDoneData(responseData.data.getDoneList.done);
+      }
+    }
   };
 
   const getRowsData = () => {
@@ -223,12 +332,12 @@ function UserLoggedInView(): JSX.Element {
                     <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" />
                     <div className="flex flex-col mx-4">
                       <div className="text-lg">
-                        <b>
-                          {item.firstName} {item.lastName}
-                        </b>
+                        <b>{item.title}</b>
                       </div>
-                      <div className="my-2">{item.text}</div>
-                      <div className="my-1 text-xs text-gray-500">{item.createdAt}</div>
+                      <div className="my-2">{item.description}</div>
+                      <div className="my-1 text-xs text-gray-500">
+                        {moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}
+                      </div>
                     </div>
                   </div>
                 </div>
