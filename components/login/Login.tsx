@@ -54,7 +54,7 @@ function Login(): JSX.Element {
 
       if (response) {
         const responseData = response.data;
-        if (responseData.data.login.message === 'login') {
+        if (responseData.data && responseData.data.login.message === 'login') {
           const token = responseData.data.login.token;
           const userId = responseData.data.login.userId;
           localStorage.setItem('token', token);
@@ -206,10 +206,10 @@ function Login(): JSX.Element {
 
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                      Signup fail
+                      Login fail
                     </h3>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">Signup fail, Email already exists</p>
+                      <p className="text-sm text-gray-500">Wrong password</p>
                     </div>
                   </div>
                 </div>

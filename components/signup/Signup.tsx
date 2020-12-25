@@ -48,7 +48,7 @@ function Signup(): JSX.Element {
 
       if (response.status === 200) {
         const responseData = response.data;
-        if (responseData.data.signup.message === 'signup') {
+        if (responseData.data && responseData.data.signup.message === 'signup') {
           setShowSuccessModal(true);
         } else {
           setShowErrorModal(true);

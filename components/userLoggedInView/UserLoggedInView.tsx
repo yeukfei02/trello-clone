@@ -335,7 +335,7 @@ function UserLoggedInView(): JSX.Element {
                     className="flex flex-row bg-white p-5 m-5 rounded hoverItem"
                     style={{ backgroundColor: snapshot.isDragging ? 'rgba(254, 202, 202, 1)' : '' }}
                   >
-                    <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" />
+                    {/* <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" /> */}
                     <div className="flex flex-col mx-4">
                       <div className="text-lg">
                         <b>{item.title}</b>
