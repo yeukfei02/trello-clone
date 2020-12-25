@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/yeukfei02/trello-clone/compare/v0.1.2...v0.1.3) (2020-12-25)
+
+
+### Features
+
+* 🎸 add text in dummy view ([a8fafc0](https://github.com/yeukfei02/trello-clone/commit/a8fafc009b065eca06815a034a1d6e5b802c6747))
+
+
+### Bug Fixes
+
+* 🐛 fix error modal message ([8e74889](https://github.com/yeukfei02/trello-clone/commit/8e74889fde8b88367bc961a794855795f9ab80bc))
+
 ### [0.1.2](https://github.com/yeukfei02/trello-clone/compare/v0.1.1...v0.1.2) (2020-12-25)
 
 
