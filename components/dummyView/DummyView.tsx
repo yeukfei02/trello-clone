@@ -280,6 +280,10 @@ function DummyView(): JSX.Element {
         </button>
       </div>
 
+      <div className="text-2xl text-center font-bold my-8">
+        This is dummy data view, please register/login to use this Trello Clone
+      </div>
+
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="rows" type="Rows" direction="horizontal">
           {(provided, _) => (
