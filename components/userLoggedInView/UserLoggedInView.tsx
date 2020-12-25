@@ -72,7 +72,7 @@ function UserLoggedInView(): JSX.Element {
         console.log('responseData = ', responseData);
 
         const userDetails = responseData.data.getUserDetails.userDetails;
-        const resultStr = `${userDetails.firstName} ${userDetails.lastName} (${userDetails.email})`;
+        const resultStr = userDetails.firstName.substring(0, 1);
         localStorage.setItem('userDetailsStr', resultStr);
         setUserDetails(resultStr);
       }
@@ -526,8 +526,28 @@ function UserLoggedInView(): JSX.Element {
     return rows;
   };
 
+  const renderUserDetailsCircle = (userDetails: string) => {
+    let userDetailsCircle = null;
+
+    if (userDetails) {
+      userDetailsCircle = (
+        <div className="flex-shrink-0 h-10 w-10">
+          <div className="h-10 w-10 rounded-full bg-purple-500 flex justify-center items-center">
+            <div className="text-white text-xl font-bold">{userDetails}</div>
+          </div>
+        </div>
+      );
+    }
+
+    return userDetailsCircle;
+  };
+
   const handleAddItemButtonClick = () => {
     router.push(`/add-item`);
+  };
+
+  const handleChangePasswordButtonClick = () => {
+    router.push(`/change-password`);
   };
 
   const handleLogoutButtonClick = () => {
@@ -538,7 +558,7 @@ function UserLoggedInView(): JSX.Element {
   return (
     <div className="m-10">
       <div className="flex flex-row justify-end mb-8">
-        <div className="flex items-center font-bold text-lg">{userDetails}</div>
+        {renderUserDetailsCircle(userDetails)}
 
         <button
           type="button"
@@ -546,6 +566,14 @@ function UserLoggedInView(): JSX.Element {
           onClick={() => handleAddItemButtonClick()}
         >
           Add Item
+        </button>
+
+        <button
+          type="button"
+          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          onClick={() => handleChangePasswordButtonClick()}
+        >
+          Change Password
         </button>
 
         <button
