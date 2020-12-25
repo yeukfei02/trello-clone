@@ -97,6 +97,9 @@ function UserLoggedInView(): JSX.Element {
           break;
       }
       setShowSuccessModal(true);
+      setTimeout(() => {
+        router.push(`/`);
+      }, 1500);
     }
   };
 
@@ -256,7 +259,7 @@ function UserLoggedInView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              {/* <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -264,7 +267,7 @@ function UserLoggedInView(): JSX.Element {
                 >
                   Close
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -274,9 +277,9 @@ function UserLoggedInView(): JSX.Element {
     return modal;
   };
 
-  const handleSuccessCloseButtonClick = () => {
-    router.push(`/`);
-  };
+  // const handleSuccessCloseButtonClick = () => {
+  //   router.push(`/`);
+  // };
 
   const handleLogoutButtonClick = () => {
     localStorage.clear();

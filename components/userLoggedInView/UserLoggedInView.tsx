@@ -98,6 +98,7 @@ function UserLoggedInView(): JSX.Element {
                         userId
                         title
                         description
+                        dataType
                         createdAt
                         updatedAt
                     }
@@ -141,6 +142,7 @@ function UserLoggedInView(): JSX.Element {
                         userId
                         title
                         description
+                        dataType
                         createdAt
                         updatedAt
                     }
@@ -184,6 +186,7 @@ function UserLoggedInView(): JSX.Element {
                         userId
                         title
                         description
+                        dataType
                         createdAt
                         updatedAt
                     }
@@ -332,11 +335,26 @@ function UserLoggedInView(): JSX.Element {
               return (
                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                   <div
-                    className="flex flex-row bg-white p-5 m-5 rounded hoverItem"
+                    className="flex flex-col items-end bg-white p-5 m-5 rounded hoverItem"
                     style={{ backgroundColor: snapshot.isDragging ? 'rgba(254, 202, 202, 1)' : '' }}
                   >
                     {/* <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" /> */}
-                    <div className="flex flex-col mx-4">
+                    <div
+                      className="h-8 w-8"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleDeleteButtonClick(item.id, item.dataType)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+
+                    <div className="flex flex-col self-start mx-4">
                       <div className="text-lg">
                         <b>{item.title}</b>
                       </div>
@@ -355,6 +373,130 @@ function UserLoggedInView(): JSX.Element {
     }
 
     return itemsList;
+  };
+
+  const handleDeleteButtonClick = async (id: string, dataType: string) => {
+    switch (dataType) {
+      case 'todo':
+        await deleteTodoDataById(id);
+        break;
+      case 'inProgress':
+        await deleteInProgressDataById(id);
+        break;
+      case 'done':
+        await deleteDoneDataById(id);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const deleteTodoDataById = async (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation deleteTodoDataById ($id: String!) {
+                deleteTodoDataById (id: $id) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        if (responseData.data) {
+          await getTododata();
+        }
+      }
+    }
+  };
+
+  const deleteInProgressDataById = async (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation deleteInProgressDataById ($id: String!) {
+                deleteInProgressDataById (id: $id) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        if (responseData.data) {
+          await getInProgressData();
+        }
+      }
+    }
+  };
+
+  const deleteDoneDataById = async (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const response = await axios.post(
+        `${ROOT_URL}`,
+        {
+          query: `
+            mutation deleteDoneDataById ($id: String!) {
+                deleteDoneDataById (id: $id) {
+                    message
+                }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response) {
+        const responseData = response.data;
+        console.log('responseData = ', responseData);
+
+        if (responseData.data) {
+          await getDoneData();
+        }
+      }
+    }
   };
 
   const renderRows = (rowsData: any[]) => {
