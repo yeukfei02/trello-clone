@@ -220,8 +220,8 @@ function UserLoggedInView(): JSX.Element {
 
     if (showSuccessModal) {
       modal = (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 transition-opacity" aria-hidden="true">
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
@@ -231,16 +231,16 @@ function UserLoggedInView(): JSX.Element {
             </span>
 
             <div
-              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              className="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-headline"
             >
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-green-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
                     <svg
-                      className="h-6 w-6 text-green-600"
+                      className="w-6 h-6 text-green-600"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -251,7 +251,7 @@ function UserLoggedInView(): JSX.Element {
                   </div>
 
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
                       Add Item success!
                     </h3>
                     <div className="mt-2">
@@ -260,10 +260,10 @@ function UserLoggedInView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              {/* <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              {/* <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => handleSuccessCloseButtonClick()}
                 >
                   Close
@@ -283,9 +283,9 @@ function UserLoggedInView(): JSX.Element {
 
     if (userDetails) {
       userDetailsCircle = (
-        <div className="flex-shrink-0 h-10 w-10">
-          <div className="h-10 w-10 rounded-full bg-purple-500 flex justify-center items-center">
-            <div className="text-white text-xl font-bold">{userDetails}</div>
+        <div className="flex-shrink-0 w-10 h-10">
+          <div className="flex items-center justify-center w-10 h-10 bg-purple-500 rounded-full">
+            <div className="text-xl font-bold text-white">{userDetails}</div>
           </div>
         </div>
       );
@@ -310,7 +310,7 @@ function UserLoggedInView(): JSX.Element {
   return (
     <div className="m-10">
       <div className="flex flex-row justify-between mb-8">
-        <div className="h-6 w-6 self-center" style={{ cursor: 'pointer' }} onClick={() => handleBackArrowClick()}>
+        <div className="self-center w-6 h-6" style={{ cursor: 'pointer' }} onClick={() => handleBackArrowClick()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -321,7 +321,7 @@ function UserLoggedInView(): JSX.Element {
 
           <button
             type="button"
-            className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            className="px-4 py-2 ml-5 text-sm font-medium text-white bg-red-600 border-transparent rounded-md shadow-sm order hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             onClick={() => handleLogoutButtonClick()}
           >
             Logout
@@ -329,12 +329,12 @@ function UserLoggedInView(): JSX.Element {
         </div>
       </div>
 
-      <div className="container m-auto max-w-3xl">
-        <div className="shadow overflow-hidden rounded-lg">
+      <div className="container max-w-3xl m-auto">
+        <div className="overflow-hidden rounded-lg shadow">
           <div className="p-8 bg-gray-200">
             <div>
-              <img src="/favicon.png" className="m-auto h-20 w-20" />
-              <div className="text-2xl text-center my-5 font-bold">Trello Clone</div>
+              <img src="/favicon.png" className="w-20 h-20 m-auto" />
+              <div className="my-5 text-2xl font-bold text-center">Trello Clone</div>
             </div>
 
             <div className="mt-5">
@@ -347,7 +347,7 @@ function UserLoggedInView(): JSX.Element {
                 id="title"
                 placeholder="Title"
                 onChange={(e) => handleTitleInputChange(e)}
-                className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
+                className="block w-full p-3 mt-3 border-red-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
               />
             </div>
 
@@ -359,7 +359,7 @@ function UserLoggedInView(): JSX.Element {
                 id="description"
                 name="description"
                 rows={5}
-                className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
+                className="block w-full p-3 mt-3 border-red-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
                 placeholder="Description"
                 onChange={(e) => handleDescriptionInputChange(e)}
               ></textarea>
@@ -374,7 +374,7 @@ function UserLoggedInView(): JSX.Element {
                 name="type"
                 value={type}
                 onChange={(e) => handleTypeDropdownChange(e)}
-                className="mt-3 p-3 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
+                className="block w-full p-3 mt-3 border-red-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
               >
                 <option value="todo">Todo</option>
                 <option value="inProgress">In progress</option>
@@ -386,7 +386,7 @@ function UserLoggedInView(): JSX.Element {
             <button
               type="button"
               onClick={() => handleAddItemSubmitButtonClick()}
-              className="inline-flex justify-center py-2 px-4 w-full border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               Add Item
             </button>

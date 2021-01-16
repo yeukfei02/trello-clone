@@ -83,9 +83,9 @@ function DummyView(): JSX.Element {
       id: 'todo',
       content: (
         <div className="p-5">
-          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+          <div className="overflow-hidden bg-gray-300 shadow sm:rounded-lg">
             <div className="p-5">
-              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Todo</h3>
+              <h3 className="px-5 text-lg font-medium leading-6 text-gray-900">Todo</h3>
 
               <Droppable droppableId="todoData" type="Todo">
                 {(provided, _) => (
@@ -104,9 +104,9 @@ function DummyView(): JSX.Element {
       id: 'inProgress',
       content: (
         <div className="p-5">
-          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+          <div className="overflow-hidden bg-gray-300 shadow sm:rounded-lg">
             <div className="p-5">
-              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">In progress</h3>
+              <h3 className="px-5 text-lg font-medium leading-6 text-gray-900">In progress</h3>
 
               <Droppable droppableId="inProgressData" type="InProgress">
                 {(provided, _) => (
@@ -125,9 +125,9 @@ function DummyView(): JSX.Element {
       id: 'done',
       content: (
         <div className="p-5">
-          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+          <div className="overflow-hidden bg-gray-300 shadow sm:rounded-lg">
             <div className="p-5">
-              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Done</h3>
+              <h3 className="px-5 text-lg font-medium leading-6 text-gray-900">Done</h3>
 
               <Droppable droppableId="doneData" type="Done">
                 {(provided, _) => (
@@ -200,10 +200,10 @@ function DummyView(): JSX.Element {
               return (
                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                   <div
-                    className="flex flex-row bg-white p-5 m-5 rounded hoverItem"
+                    className="flex flex-row p-5 m-5 bg-white rounded hoverItem"
                     style={{ backgroundColor: snapshot.isDragging ? 'rgba(254, 202, 202, 1)' : '' }}
                   >
-                    <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" />
+                    <img src={item.imageUrl} className="flex-shrink-0 w-10 h-10 rounded-full" />
                     <div className="flex flex-col mx-4">
                       <div className="text-lg">
                         <b>
@@ -265,7 +265,7 @@ function DummyView(): JSX.Element {
       <div className="flex flex-row justify-end mb-8">
         <button
           type="button"
-          className="px-4 py-2 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          className="px-4 py-2 text-sm font-medium text-white bg-red-600 border-transparent rounded-md shadow-sm order hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           onClick={() => handleLoginButtonClick()}
         >
           Login
@@ -273,14 +273,14 @@ function DummyView(): JSX.Element {
 
         <button
           type="button"
-          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+          className="px-4 py-2 ml-5 text-sm font-medium text-white bg-pink-600 border-transparent rounded-md shadow-sm order hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
           onClick={() => handleSignupButtonClick()}
         >
           Signup
         </button>
       </div>
 
-      <div className="text-2xl text-center font-bold my-8">
+      <div className="my-8 text-2xl font-bold text-center">
         This is dummy data view, please register/login to use this Trello Clone
       </div>
 
@@ -288,7 +288,7 @@ function DummyView(): JSX.Element {
         <Droppable droppableId="rows" type="Rows" direction="horizontal">
           {(provided, _) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <div className="grid md:grid-cols-3 gap-4">{renderRows(rowsData)}</div>
+              <div className="grid gap-4 md:grid-cols-3">{renderRows(rowsData)}</div>
               {provided.placeholder}
             </div>
           )}
