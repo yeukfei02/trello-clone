@@ -218,9 +218,9 @@ function UserLoggedInView(): JSX.Element {
       id: 'todo',
       content: (
         <div className="p-5">
-          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+          <div className="overflow-hidden bg-gray-300 shadow sm:rounded-lg">
             <div className="p-5">
-              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Todo</h3>
+              <h3 className="px-5 text-lg font-medium leading-6 text-gray-900">Todo</h3>
 
               <Droppable droppableId="todoData" type="Todo">
                 {(provided, _) => (
@@ -239,9 +239,9 @@ function UserLoggedInView(): JSX.Element {
       id: 'inProgress',
       content: (
         <div className="p-5">
-          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+          <div className="overflow-hidden bg-gray-300 shadow sm:rounded-lg">
             <div className="p-5">
-              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">In progress</h3>
+              <h3 className="px-5 text-lg font-medium leading-6 text-gray-900">In progress</h3>
 
               <Droppable droppableId="inProgressData" type="InProgress">
                 {(provided, _) => (
@@ -260,9 +260,9 @@ function UserLoggedInView(): JSX.Element {
       id: 'done',
       content: (
         <div className="p-5">
-          <div className="bg-gray-300 shadow overflow-hidden sm:rounded-lg">
+          <div className="overflow-hidden bg-gray-300 shadow sm:rounded-lg">
             <div className="p-5">
-              <h3 className="px-5 text-lg leading-6 font-medium text-gray-900">Done</h3>
+              <h3 className="px-5 text-lg font-medium leading-6 text-gray-900">Done</h3>
 
               <Droppable droppableId="doneData" type="Done">
                 {(provided, _) => (
@@ -335,12 +335,12 @@ function UserLoggedInView(): JSX.Element {
               return (
                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                   <div
-                    className="flex flex-col items-end bg-white p-5 m-5 rounded hoverItem"
+                    className="flex flex-col items-end p-5 m-5 bg-white rounded hoverItem"
                     style={{ backgroundColor: snapshot.isDragging ? 'rgba(254, 202, 202, 1)' : '' }}
                   >
-                    {/* <img src={item.imageUrl} className="flex-shrink-0 h-10 w-10 rounded-full" /> */}
+                    {/* <img src={item.imageUrl} className="flex-shrink-0 w-10 h-10 rounded-full" /> */}
                     <div
-                      className="h-8 w-8"
+                      className="w-8 h-8"
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleDeleteButtonClick(item.id, item.dataType)}
                     >
@@ -531,9 +531,9 @@ function UserLoggedInView(): JSX.Element {
 
     if (userDetails) {
       userDetailsCircle = (
-        <div className="flex-shrink-0 h-10 w-10">
-          <div className="h-10 w-10 rounded-full bg-purple-500 flex justify-center items-center">
-            <div className="text-white text-xl font-bold">{userDetails}</div>
+        <div className="flex-shrink-0 w-10 h-10">
+          <div className="flex items-center justify-center w-10 h-10 bg-purple-500 rounded-full">
+            <div className="text-xl font-bold text-white">{userDetails}</div>
           </div>
         </div>
       );
@@ -562,7 +562,7 @@ function UserLoggedInView(): JSX.Element {
 
         <button
           type="button"
-          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+          className="px-4 py-2 ml-5 text-sm font-medium text-white bg-yellow-600 border-transparent rounded-md shadow-sm order hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
           onClick={() => handleAddItemButtonClick()}
         >
           Add Item
@@ -570,7 +570,7 @@ function UserLoggedInView(): JSX.Element {
 
         <button
           type="button"
-          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          className="px-4 py-2 ml-5 text-sm font-medium text-white bg-green-600 border-transparent rounded-md shadow-sm order hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           onClick={() => handleChangePasswordButtonClick()}
         >
           Change Password
@@ -578,7 +578,7 @@ function UserLoggedInView(): JSX.Element {
 
         <button
           type="button"
-          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          className="px-4 py-2 ml-5 text-sm font-medium text-white bg-red-600 border-transparent rounded-md shadow-sm order hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           onClick={() => handleLogoutButtonClick()}
         >
           Logout
@@ -589,7 +589,7 @@ function UserLoggedInView(): JSX.Element {
         <Droppable droppableId="rows" type="Rows" direction="horizontal">
           {(provided, _) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <div className="grid md:grid-cols-3 gap-4">{renderRows(rowsData)}</div>
+              <div className="grid gap-4 md:grid-cols-3">{renderRows(rowsData)}</div>
               {provided.placeholder}
             </div>
           )}

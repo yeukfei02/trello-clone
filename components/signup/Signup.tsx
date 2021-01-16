@@ -91,8 +91,8 @@ function Signup(): JSX.Element {
 
     if (showSuccessModal) {
       modal = (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 transition-opacity" aria-hidden="true">
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
@@ -102,16 +102,16 @@ function Signup(): JSX.Element {
             </span>
 
             <div
-              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              className="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-headline"
             >
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-green-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
                     <svg
-                      className="h-6 w-6 text-green-600"
+                      className="w-6 h-6 text-green-600"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -122,7 +122,7 @@ function Signup(): JSX.Element {
                   </div>
 
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
                       Signup success!
                     </h3>
                     <div className="mt-2">
@@ -131,10 +131,10 @@ function Signup(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-600 text-base font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => handleSuccessCloseButtonClick()}
                 >
                   Close
@@ -154,8 +154,8 @@ function Signup(): JSX.Element {
 
     if (showErrorModal) {
       modal = (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 transition-opacity" aria-hidden="true">
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
@@ -165,16 +165,16 @@ function Signup(): JSX.Element {
             </span>
 
             <div
-              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              className="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-headline"
             >
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
                     <svg
-                      className="h-6 w-6 text-red-600"
+                      className="w-6 h-6 text-red-600"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -191,7 +191,7 @@ function Signup(): JSX.Element {
                   </div>
 
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
                       Signup fail
                     </h3>
                     <div className="mt-2">
@@ -200,10 +200,10 @@ function Signup(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-pink-600 text-base font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => handleErrorCloseButtonClick()}
                 >
                   Close
@@ -232,7 +232,7 @@ function Signup(): JSX.Element {
       <div className="flex flex-row justify-end mb-8">
         <button
           type="button"
-          className="px-4 py-2 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          className="px-4 py-2 text-sm font-medium text-white bg-red-600 border-transparent rounded-md shadow-sm order hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           onClick={() => handleLoginButtonClick()}
         >
           Login
@@ -240,19 +240,19 @@ function Signup(): JSX.Element {
 
         <button
           type="button"
-          className="px-4 py-2 ml-5 order border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+          className="px-4 py-2 ml-5 text-sm font-medium text-white bg-pink-600 border-transparent rounded-md shadow-sm order hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
           onClick={() => handleSignupButtonClick()}
         >
           Signup
         </button>
       </div>
 
-      <div className="container m-auto max-w-3xl">
-        <div className="shadow overflow-hidden rounded-lg">
+      <div className="container max-w-3xl m-auto">
+        <div className="overflow-hidden rounded-lg shadow">
           <div className="p-8 bg-gray-200">
             <div>
-              <img src="/favicon.png" className="m-auto h-20 w-20" />
-              <div className="text-2xl text-center my-5 font-bold">Trello Clone</div>
+              <img src="/favicon.png" className="w-20 h-20 m-auto" />
+              <div className="my-5 text-2xl font-bold text-center">Trello Clone</div>
             </div>
 
             <div className="mt-5">
@@ -265,7 +265,7 @@ function Signup(): JSX.Element {
                 id="email"
                 placeholder="Email"
                 onChange={(e) => handleEmailInputChange(e)}
-                className="mt-3 p-3 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-pink-300 rounded-md"
+                className="block w-full p-3 mt-3 border-pink-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
               />
             </div>
 
@@ -279,7 +279,7 @@ function Signup(): JSX.Element {
                 id="password"
                 placeholder="Password"
                 onChange={(e) => handlePasswordInputChange(e)}
-                className="mt-3 p-3 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-pink-300 rounded-md"
+                className="block w-full p-3 mt-3 border-pink-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
               />
             </div>
 
@@ -293,7 +293,7 @@ function Signup(): JSX.Element {
                 id="firstName"
                 placeholder="First Name"
                 onChange={(e) => handleFirstNameInputChange(e)}
-                className="mt-3 p-3 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-pink-300 rounded-md"
+                className="block w-full p-3 mt-3 border-pink-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
               />
             </div>
 
@@ -307,7 +307,7 @@ function Signup(): JSX.Element {
                 id="lastName"
                 placeholder="Last Name"
                 onChange={(e) => handleLastNameInputChange(e)}
-                className="mt-3 p-3 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-pink-300 rounded-md"
+                className="block w-full p-3 mt-3 border-pink-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
               />
             </div>
           </div>
@@ -315,7 +315,7 @@ function Signup(): JSX.Element {
             <button
               type="button"
               onClick={() => handleSignupSubmitButtonClick()}
-              className="inline-flex justify-center py-2 px-4 w-full border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+              className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
             >
               Signup
             </button>
