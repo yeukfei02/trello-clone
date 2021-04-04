@@ -2,16 +2,16 @@
 
 trello-clone
 
-url: https://trello-clone-omega.vercel.app/
+url: <https://trello-clone-omega.vercel.app/>
 
-## Requirement:
+## Requirement
 
 - install yarn
 - install node (v12+)
 
-## Testing and run:
+## Testing and run
 
-```
+```zsh
 $ yarn
 
 // development
