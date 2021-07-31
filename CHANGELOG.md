@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/yeukfei02/trello-clone/compare/v0.1.3...v0.1.4) (2021-07-31)
+
+
+### Bug Fixes
+
+* 🐛 fix rooturl ([59e297a](https://github.com/yeukfei02/trello-clone/commit/59e297a4e7b808afbc6e35674b1488b274b811c3))
+* 🐛 sort tailwind css ([7a99dce](https://github.com/yeukfei02/trello-clone/commit/7a99dce360f050b8cf18b6533a196b9ae49c01ee))
+* 🐛 update readme.md ([3bb3d37](https://github.com/yeukfei02/trello-clone/commit/3bb3d37713d34864bd245bf55d2ddeffe9f1d788))
+
 ### [0.1.3](https://github.com/yeukfei02/trello-clone/compare/v0.1.2...v0.1.3) (2020-12-25)
 
 
